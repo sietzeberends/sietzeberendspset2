@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class FillStory extends AppCompatActivity {
@@ -15,6 +16,7 @@ public class FillStory extends AppCompatActivity {
     // array of InputStreams to choose from and an InputStream that is used as input for the story
     InputStream input[] = new InputStream[5];
     InputStream choice;
+    ArrayList<String> words = new ArrayList<String>();
 
     // the position of the story in the array and the story itself
     int position;
@@ -44,7 +46,7 @@ public class FillStory extends AppCompatActivity {
 
         // choose a story based on input from the user. If no input is given, choose a random story
         Intent intent = getIntent();
-        int position= intent.getIntExtra("storyPosition",6);
+        position= intent.getIntExtra("storyPosition",6);
 
         // if the user wants a random story
         if (position == 5){
@@ -54,9 +56,32 @@ public class FillStory extends AppCompatActivity {
             position = r.nextInt(maximum - minimum) + minimum;
         }
         // choose the story, display the amount of placeholders to replace and the first placeholder
-        System.out.println("You chose " + position + "!");
         choice = input[position];
         story = new Story(choice);
+        wordInput.setHint(story.getNextPlaceholder());
+        wordsLeft.setText("Words left: " + story.getPlaceholderRemainingCount());
+    }
+
+    @Override
+    public void onSaveInstanceState (Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("storyChoice", position);
+        outState.putStringArrayList("words", words);
+    }
+
+    @Override
+    public void onRestoreInstanceState (Bundle inState) {
+        super.onRestoreInstanceState(inState);
+        words = inState.getStringArrayList("words");
+        choice = input[position];
+        story.read(choice);
+        for (int i = 0; i < words.size(); i++) {
+            story.fillInPlaceholder(words.get(i));
+            System.out.println(words.get(i));
+            System.out.println(i);
+        }
+        System.out.println(story.getPlaceholderRemainingCount());
+        wordInput.setText("");
         wordInput.setHint(story.getNextPlaceholder());
         wordsLeft.setText("Words left: " + story.getPlaceholderRemainingCount());
     }
@@ -65,10 +90,11 @@ public class FillStory extends AppCompatActivity {
         // replace the placeholder
         String word = wordInput.getText().toString();
         story.fillInPlaceholder(word);
+        words.add(word);
 
         // keep going until all placeholders are replaced
         if (story.getPlaceholderRemainingCount() != 0) {
-            EditText wordInput = findViewById(R.id.wordInput);
+            wordInput = findViewById(R.id.wordInput);
             wordInput.setText("");
             wordInput.setHint(story.getNextPlaceholder());
             wordsLeft.setText("Words left: " + story.getPlaceholderRemainingCount());

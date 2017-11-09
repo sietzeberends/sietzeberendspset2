@@ -57,5 +57,6 @@ public class ChooseStory extends AppCompatActivity {
         Intent intent = new Intent(this, FillStory.class);
         intent.putExtra("storyPosition", index);
         startActivity(intent);
+
     }
 }
