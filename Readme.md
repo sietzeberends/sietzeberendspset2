@@ -4,21 +4,21 @@ App that let's you fill a story with random placeholders. Mad Libs!
 
 Screenshots:
 
-#StartScreen:
+# StartScreen:
 ![alt text](https://raw.githubusercontent.com/sietzeberends/sietzeberendspset2/master/startScreen.png)
 
-#chooseStory:
+# chooseStory:
 
 ![alt text](https://raw.githubusercontent.com/sietzeberends/sietzeberendspset2/master/chooseStory.png)
 
-#fillStory:
+# fillStory:
 
 ![alt text](https://raw.githubusercontent.com/sietzeberends/sietzeberendspset2/master/fillStory.png)
 
-#fillStory Landscape:
+# fillStory Landscape:
 
 ![alt text](https://raw.githubusercontent.com/sietzeberends/sietzeberendspset2/master/fillStory2.png)
 
-#storyCompleted
+# storyCompleted
 
 ![alt text](https://raw.githubusercontent.com/sietzeberends/sietzeberendspset2/master/storyCompleted.png)
