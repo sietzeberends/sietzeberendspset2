@@ -21,4 +21,9 @@ public class StoryCompleted extends AppCompatActivity {
         String text = intent.getStringExtra("story");
         story.setText(text);
     }
+
+    public void onBackPressed() {
+        Intent intent = new Intent(this, StartScreen.class);
+        startActivity(intent);
+    }
 }
